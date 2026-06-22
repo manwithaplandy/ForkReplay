@@ -3,7 +3,7 @@
 **Status:** Draft v0.5
 **Owner:** Andrew
 **Last updated:** 2026-06-21
-**Related:** `agent-trace-fork-prd.md` (v0.9), `competitive_analysis.md` (v0.4), `implementation-plan.md` (v0.4)
+**Related:** `agent-trace-fork-prd.md` (v0.9), `competitive_analysis.md` (v0.4)
 
 v0.5 (OSS pivot) turns the contracts from a managed multi-vendor SaaS into an **open-source, self-hostable** product. Major changes:
 - **License:** Apache-2.0. Single self-hostable codebase; no managed-SaaS layer.

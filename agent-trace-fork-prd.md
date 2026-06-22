@@ -3,7 +3,7 @@
 **Status:** Draft v0.9
 **Owner:** Andrew
 **Last updated:** 2026-06-21
-**Related:** `competitive_analysis.md` (v0.4), `implementation-readiness-spec.md` (v0.5), `implementation-plan.md` (v0.4)
+**Related:** `competitive_analysis.md` (v0.4), `implementation-readiness-spec.md` (v0.5)
 
 > **Changes from v0.8 (OSS pivot):** ForkReplay pivots from a managed multi-vendor SaaS to an **open-source, self-hostable product**. There is no retained managed-SaaS layer; self-host *is* the product. Headline changes:
 > - **License & distribution.** ForkReplay ships under **Apache-2.0** (permissive, with an explicit patent grant). The whole product is a single self-hostable codebase published as OSS.
@@ -448,7 +448,7 @@ There is no billing in self-host; this section is about bounding resource use an
 
 ## 9. High-Level Architecture
 
-ForkReplay is a single self-hostable OSS stack. Everything below runs inside the operator's environment; every external service is either bundled OSS (compose) or pluggable. Detailed sequencing lives in `implementation-plan.md`; this section records the product-level architecture contract.
+ForkReplay is a single self-hostable OSS stack. Everything below runs inside the operator's environment; every external service is either bundled OSS (compose) or pluggable. Detailed build sequencing is tracked as the GitHub milestones (Phase 0–6); this section records the product-level architecture contract.
 
 ```
    ┌─────────────────────────────────────────────────────────────────────────┐

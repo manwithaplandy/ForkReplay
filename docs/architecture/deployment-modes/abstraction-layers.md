@@ -4,9 +4,9 @@ The interfaces that keep ForkReplay's backends pluggable. Each one is a stable s
 of the codebase programs against; the concrete backend behind it is chosen at runtime by an
 environment variable / config value, never hard-coded.
 
-> **Phase-6 design outline only.** Per [implementation-plan.md](../../../implementation-plan.md)
-> §9.1 and §11, the productionized implementations of these interfaces are authored in a
-> future implementation phase. This page sketches method signatures, responsibilities, the
+> **Phase-6 design outline only.** Per the Phase 6 GitHub milestone, the productionized
+> implementations of these interfaces are authored in a future implementation phase. This
+> page sketches method signatures, responsibilities, the
 > backends each interface abstracts, and the selection mechanism — it authors no production
 > code. The companion [deploy-outline.md](./deploy-outline.md) covers the `deploy/` tree and
 > variable surfaces.

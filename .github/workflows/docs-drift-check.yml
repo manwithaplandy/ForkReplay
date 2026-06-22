@@ -79,7 +79,7 @@ jobs:
           # Paths where these terms are expected (frozen audit, deprecated dirs).
           is_allowed_path() {
             case "$1" in
-              READINESS-GATE-REPORT.md|workers/*|workflows/*|.github/workflows/docs-drift-check.yml|.claude/skills/*|.codex/skills/*) return 0 ;;
+              workers/*|workflows/*|.github/workflows/docs-drift-check.yml|.claude/skills/*|.codex/skills/*) return 0 ;;
               *) return 1 ;;
             esac
           }

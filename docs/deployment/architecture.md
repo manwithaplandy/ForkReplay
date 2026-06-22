@@ -122,24 +122,22 @@ sanitized provisioning worksheet.
 
 ---
 
-## Deprecated Cloudflare/Vercel components → OSS replacements
+## Deprecated → OSS replacements
 
-The repo retains some Cloudflare/Vercel-era directories as transition references only
-(secret-scrubbed). They are not part of the self-host stack and are slated for deletion in an
-implementation phase.
+> **This doc's role:** operator topology and the environment contract for the self-host
+> stack. The design-sketch docs under [`../architecture/`](../architecture/README.md) cover
+> ownership boundaries, contracts, and sequencing.
 
-| Deprecated | OSS replacement (this architecture) |
-|------------|-------------------------------------|
-| `workers/otlp-gateway` (CF Workers) | FastAPI OTLP endpoint in `services/api` / `services/ingest` |
-| `workers/sse-relay` (CF Workers + Durable Object) | FastAPI SSE backed by Redis pub/sub |
-| `workflows/cloudflare` (CF Workflows) | Temporal (self-hosted) |
-| Vercel-hosted web | `apps/web` standalone container (deployable anywhere) |
-| `services/billing-batch-worker` | Removed — no built-in billing; cron → optional `services/scheduler` |
+The deprecated → OSS-replacement mapping (the legacy Cloudflare/Vercel directories and the
+removed billing layer, with their OSS successors) is maintained canonically in
+[`../architecture/service-responsibilities.md` → Deprecated → replaced mapping](../architecture/service-responsibilities.md#deprecated--replaced-mapping)
+to avoid drift. Those transition-reference directories are not part of the self-host stack.
 
 ---
 
 ## Where to go next
 
+- [../architecture/README.md](../architecture/README.md) — architecture design sketches (services, schemas, API, Temporal, SDK, deployment modes)
 - [docker-compose.md](./docker-compose.md) — bundled all-in-one stack + 5-minute quickstart
 - [helm.md](./helm.md) — Kubernetes chart design
 - [terraform-aws.md](./terraform-aws.md) / [terraform-azure.md](./terraform-azure.md) — cloud IaC design

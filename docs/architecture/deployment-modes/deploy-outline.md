@@ -4,9 +4,9 @@ The planned layout of the `deploy/` tree across the three self-host targets: the
 docker-compose all-in-one stack, the Helm (Kubernetes) chart, and the Terraform skeletons
 for AWS + Azure. This is the design outline that Phase 6 turns into running artifacts.
 
-> **Phase-6 design outline only.** Per [implementation-plan.md](../../../implementation-plan.md)
-> §9 and §11, the actual `deploy/` artifacts (the Compose file, the Helm chart, the Terraform
-> modules) are authored in a future implementation phase. **No functional deploy code is
+> **Phase-6 design outline only.** Per the Phase 6 GitHub milestone, the actual `deploy/`
+> artifacts (the Compose file, the Helm chart, the Terraform modules) are authored in a
+> future implementation phase. **No functional deploy code is
 > authored here** — this page sketches the directory layout, the bundled components, and the
 > variable surfaces so the implementation has a fixed target. The deployment-target design
 > narratives live under [`docs/deployment/`](../../deployment/architecture.md); this page is

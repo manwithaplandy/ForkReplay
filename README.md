@@ -105,22 +105,24 @@ ClickHouse regardless of this setting):
 
 Planning is **complete**; implementation is **phased**. This pivot converts ForkReplay from
 a managed, multi-vendor SaaS to an open-source, self-hostable product. The canonical
-planning docs describe the product and build sequence; the deployment artifacts
-(Compose / Helm / Terraform) are authored in a future phase. The documents under
-`docs/deployment/` are the authoritative design and environment contract for those artifacts.
+specification docs describe the product; the phased build sequence (Phase 0–6) is tracked as
+GitHub milestones; and the deployment artifacts (Compose / Helm / Terraform) are authored in
+a future phase. The documents under `docs/deployment/` are the authoritative design and
+environment contract for those artifacts.
 
 | Doc | Version | What it is |
 |-----|---------|------------|
 | `agent-trace-fork-prd.md` | v0.9 | Product requirements, scope, success metrics |
 | `implementation-readiness-spec.md` | v0.5 | Canonical object model, API contracts, event taxonomy, security contracts, planning-decision audit trail |
-| `implementation-plan.md` | v0.4 | Phase build sequence, validation list, milestone exit criteria |
 | `competitive_analysis.md` | v0.4 | Market landscape, positioning, differentiation thesis |
-| `READINESS-GATE-REPORT.md` | post-r3 | Pre-implementation readiness verdict + Phase 0 kickoff order |
+| GitHub milestones (Phase 0–6) | — | Phase build sequence, per-phase issue breakdown, milestone exit criteria |
 
 ---
 
 ## Documentation
 
+- **Architecture (design sketches)**
+  - [Architecture index](./docs/architecture/README.md) — services, schemas, API surface, Temporal workflows, SDK, deployment modes
 - **Deployment**
   - [Architecture](./docs/deployment/architecture.md) — self-host topology and data flow
   - [Configuration](./docs/deployment/configuration.md) — full environment-variable reference
