@@ -622,7 +622,7 @@ gates). All issues carry `phase:6-packaging`.
   `workflows/cloudflare` projects once their FastAPI/Temporal replacements are proven in this
   phase. (These were retained secret-scrubbed only as transition references.)
 - **Acceptance criteria:** the deprecated projects are removed; CI/builds reference only the
-  FastAPI/Temporal replacements; no Cloudflare-queue or Cloudflare-workflow code path remains.
+  FastAPI/Temporal stack; the Cloudflare-queue and Cloudflare-workflow code paths are **removed** (no longer present).
 - **Dependencies / blocks:** depends on `M6.1`. **Blocks** packaging exit.
 - **Suggested labels:** `phase:6-packaging`, `type:infra`.
 
@@ -697,9 +697,9 @@ the gates. Per the re-gate:
 1. 3-mode DB matrix bring-up (`M0.21`) — green in `supabase` / `custom` / `compose`.
 2. GoTrue cross-mode JWT validation (`M0.3` + `M0.21`).
 3. GoTrue against a vanilla custom Postgres (`M0.13`, replacing the Vault spike).
-4. Temporal workflow bootstrap timing (`M0.14`, replacing the Cloudflare-Workflows cold-start gate).
-5. NATS / Redis ingest throughput (`M0.10`) — the Cloudflare-Queues throughput path is
-   **replaced** by the NATS/Redis `QueueConsumer`.
+4. Temporal workflow bootstrap timing (`M0.14`) — **replaced** the legacy Cloudflare-Workflows cold-start gate.
+5. NATS / Redis ingest throughput (`M0.10`) — the legacy Cloudflare-Queues throughput path is **replaced** by
+   the NATS/Redis `QueueConsumer`.
 6. S3-abstraction conformance across MinIO / AWS S3 / Azure Blob (`M0.22`).
 7. docker-compose end-to-end smoke (`M0.23` + `M5.4`).
 8. Helm `lint`/`template` with ClickHouse + Temporal required (`M0.24` + `M5.4`).
