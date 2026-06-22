@@ -1,0 +1,32 @@
+# ---------------------------------------------------------------------------
+# DEPRECATED — slated for removal in the OSS pivot.
+#
+# This Cloudflare Workers + Durable Object SSE relay is replaced by a FastAPI
+# SSE endpoint backed by Redis pub/sub (see docs/deployment/architecture.md).
+# It is retained, secret-scrubbed, only as a reference during the transition
+# and will be deleted in the implementation phase that removes
+# Cloudflare-specific code.
+#
+# Do NOT commit account IDs, API tokens, or any other identifying values to
+# this file. `account_id` is supplied at deploy time via the
+# CLOUDFLARE_ACCOUNT_ID environment variable; never hard-code it here.
+# ---------------------------------------------------------------------------
+
+name = "forkreplay-sse-relay"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+
+# account_id is read from the CLOUDFLARE_ACCOUNT_ID env var at deploy time.
+# (Left intentionally unset so no account identifier lives in version control.)
+
+# ---------------------------------------------------------------------------
+# Durable Objects — uncommented after the DO migration spike decides on the
+# class name and migration tag.
+# ---------------------------------------------------------------------------
+# [[durable_objects.bindings]]
+# name = "BRANCH_TOPIC"
+# class_name = "BranchTopic"
+
+# [[migrations]]
+# tag = "v1"
+# new_classes = ["BranchTopic"]

@@ -1,0 +1,14 @@
+name = "forkreplay-workflows"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+
+# account_id = ""  # TODO: fill in via Cloudflare provisioning
+
+# ---------------------------------------------------------------------------
+# Cloudflare Workflows binding — populated once the durable orchestration
+# workflows have been authored (Phase 0 spike output).
+# ---------------------------------------------------------------------------
+# [[workflows]]
+# name = "branch-replay"
+# binding = "BRANCH_REPLAY"
+# class_name = "BranchReplayWorkflow"

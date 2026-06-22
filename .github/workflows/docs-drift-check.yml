@@ -1,0 +1,130 @@
+name: docs-drift-check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docs-drift-check:
+    name: docs-drift-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect contract-surface changes without paired docs/** changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BASE_REF="origin/${{ github.base_ref }}"
+          echo "Comparing against ${BASE_REF}..HEAD"
+          CHANGED=$(git diff --name-only "${BASE_REF}...HEAD")
+          echo "Changed files:"
+          echo "${CHANGED}"
+
+          touched_contracts=false
+          touched_docs=false
+
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            case "$f" in
+              services/api/openapi/*|packages/contracts/*|sdk/python/*)
+                touched_contracts=true
+                ;;
+              docs/*)
+                touched_docs=true
+                ;;
+            esac
+          done <<< "${CHANGED}"
+
+          if [ "${touched_contracts}" = "true" ] && [ "${touched_docs}" = "false" ]; then
+            echo "::error::Contract-surface files changed (services/api/openapi, packages/contracts, or sdk/python) but no matching docs/** update was found. Add a docs/** edit to this PR or use the docs-update skill."
+            exit 1
+          fi
+
+          echo "docs-drift-check passed."
+
+  removed-component-guard:
+    name: removed-component-guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Skip when a maintainer has explicitly approved reintroducing a removed term.
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'allow-removed-component') }}
+    steps:
+      - name: Check out PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Guard against reintroducing removed SaaS / Cloudflare components
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BASE_REF="origin/${{ github.base_ref }}"
+          echo "Scanning added lines in ${BASE_REF}...HEAD for removed-component terms"
+
+          # Removed in the OSS pivot — must not be reintroduced as required components.
+          # (extended-regexp, case-insensitive)
+          TERMS='stripe|replay[ _-]credit|credit[ _-]pack|supabase[ _-]vault|cloudflare[ _-]workflow|cloudflare[ _-]queue|cf[ _-]queue|billing-batch-worker|typescript sdk|ts sdk'
+
+          # Lines that document the REMOVAL (changelog / deprecation / history) are allowed.
+          ALLOW_CONTEXT='deprecat|removed|remove|legacy|no longer|slated|formerly|replaced|instead of|changes from|drop(ped)?|was |off-roadmap|frozen|audit trail'
+
+          # Paths where these terms are expected (frozen audit, deprecated dirs).
+          is_allowed_path() {
+            case "$1" in
+              READINESS-GATE-REPORT.md|workers/*|workflows/*|.github/workflows/docs-drift-check.yml|.claude/skills/*|.codex/skills/*) return 0 ;;
+              *) return 1 ;;
+            esac
+          }
+
+          violations=0
+          # Iterate changed files; only inspect added lines (+, excluding +++ headers).
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            is_allowed_path "$f" && continue
+            # Only scan text files that still exist.
+            [ -f "$f" ] || continue
+            added=$(git diff "${BASE_REF}...HEAD" -- "$f" | grep -E '^\+' | grep -Ev '^\+\+\+' || true)
+            [ -z "$added" ] && continue
+            while IFS= read -r line; do
+              [ -z "$line" ] && continue
+              if echo "$line" | grep -iqE "$TERMS"; then
+                if echo "$line" | grep -iqE "$ALLOW_CONTEXT"; then
+                  continue   # documents the removal — allowed
+                fi
+                echo "::error file=${f}::Reintroduces a removed component term: ${line#+}"
+                violations=$((violations + 1))
+              fi
+            done <<< "$added"
+          done < <(git diff --name-only "${BASE_REF}...HEAD")
+
+          if [ "${violations}" -gt 0 ]; then
+            echo "::error::${violations} line(s) reintroduce removed components (Stripe/billing, Cloudflare Workflows/Queues, Supabase Vault, TypeScript SDK). If intentional, add the 'allow-removed-component' label."
+            exit 1
+          fi
+          echo "removed-component-guard passed."
+
+  secret-scan:
+    name: secret-scan (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITLEAKS_LICENSE is only required for GitHub organizations,
+          # not for individual accounts or public repos.
+          # GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}

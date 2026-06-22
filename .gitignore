@@ -1,0 +1,34 @@
+# Secrets / env
+.env.local
+.env*.local
+
+# Local-only secret / provisioning runbooks (never commit identifying data)
+SECRET-REMEDIATION.local.md
+PROVISIONING.local.md
+*.secrets.md
+*.local.md
+
+# JS / TS
+node_modules/
+.next/
+out/
+build/
+dist/
+.turbo/
+.pnpm-store/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Cloudflare
+.wrangler/
+
+# IDE / editor (may carry org/account identifiers, e.g. Snyk org ID)
+.vscode/
+.idea/
+
+# OS
+.DS_Store

@@ -1,0 +1,21 @@
+{
+  "name": "forkreplay",
+  "version": "0.0.1",
+  "private": true,
+  "description": "ForkReplay — fork and replay captured AI agent conversations.",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "workers/*",
+    "workflows/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r --filter=./apps/* --filter=./packages/* --filter=./workers/* --filter=./workflows/* run build",
+    "dev": "pnpm --filter ./apps/web dev",
+    "lint": "pnpm -r run lint"
+  }
+}

@@ -1,0 +1,38 @@
+# ---------------------------------------------------------------------------
+# DEPRECATED — slated for removal in the OSS pivot.
+#
+# This Cloudflare Workers OTLP gateway is replaced by a FastAPI OTLP endpoint
+# in `services/ingest` (see docs/deployment/architecture.md). It is retained,
+# secret-scrubbed, only as a reference during the transition and will be
+# deleted in the implementation phase that removes Cloudflare-specific code.
+#
+# Do NOT commit account IDs, queue IDs, API tokens, or any other identifying
+# values to this file. `account_id` is supplied at deploy time via the
+# CLOUDFLARE_ACCOUNT_ID environment variable; never hard-code it here.
+# ---------------------------------------------------------------------------
+
+name = "forkreplay-otlp-gateway"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+
+# account_id is read from the CLOUDFLARE_ACCOUNT_ID env var at deploy time.
+# (Left intentionally unset so no account identifier lives in version control.)
+
+# ---------------------------------------------------------------------------
+# Cloudflare Queues (producer). Queue ID is assigned by Cloudflare at create
+# time and is supplied out-of-band; never hard-code it in this file.
+# ---------------------------------------------------------------------------
+[[queues.producers]]
+queue = "forkreplay-otlp-ingest"
+binding = "OTLP_INGEST_QUEUE"
+
+# ---------------------------------------------------------------------------
+# R2 buckets. Bucket names are deployment-specific; supply your own.
+# ---------------------------------------------------------------------------
+[[r2_buckets]]
+binding = "FRAMES_BUCKET"
+bucket_name = "forkreplay-frames"
+
+[[r2_buckets]]
+binding = "BLOBS_BUCKET"
+bucket_name = "forkreplay-frames-blobs"

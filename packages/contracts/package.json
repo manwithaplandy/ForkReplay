@@ -1,0 +1,11 @@
+{
+  "name": "@forkreplay/contracts",
+  "version": "0.0.1",
+  "private": false,
+  "description": "Shared OpenAPI and JSON schemas for ForkReplay services.",
+  "main": "index.js",
+  "files": [
+    "openapi",
+    "schemas"
+  ]
+}

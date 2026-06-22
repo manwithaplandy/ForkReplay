@@ -1,0 +1,17 @@
+[project]
+name = "forkreplay-ingest"
+version = "0.0.1"
+description = "Cloudflare Queue consumer that projects OTel spans into ForkReplay frames."
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.27",
+    "pydantic>=2.0",
+    "python-dotenv>=1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]

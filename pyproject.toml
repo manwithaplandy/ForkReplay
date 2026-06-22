@@ -1,0 +1,20 @@
+[project]
+name = "forkreplay-workspace"
+version = "0.0.1"
+description = "ForkReplay Python workspace root (uv-managed)."
+requires-python = ">=3.12"
+
+[tool.uv.workspace]
+members = [
+    "services/api",
+    "services/ingest",
+    "services/replay-worker",
+    "services/mock-gen-worker",
+    "services/export-worker",
+    "services/billing-batch-worker",
+    "sdk/python",
+    "packages/contracts",
+]
+
+[tool.uv]
+package = false
