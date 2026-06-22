@@ -23,6 +23,45 @@ files either. This is an OSS project; everything here is public.
 - CI runs a secret scan (gitleaks) on PRs; do not disable it to land a change.
 - If you find a committed secret, treat it as compromised: rotate it, then scrub it.
 
+## Development discipline — strict TDD & objective validation (MANDATORY)
+
+Every change follows **strict red/green TDD** and is gated on an **objective validation**.
+This is a hard requirement, not a preference — it applies to product code, infra, SDK, and
+fixtures alike.
+
+### Red → green → refactor, in that order
+- **Red:** write a failing test that pins the intended behavior *before* writing any
+  production code. Run it and confirm it fails *for the expected reason* (not a typo, import
+  error, or missing fixture).
+- **Green:** write the minimum production code to make that test pass. Run it; confirm green.
+- **Refactor:** clean up with the test still green, then re-run.
+- Do **not** write production code that has no failing test driving it, and do not write the
+  test *after* the code. A bug fix starts with a test that reproduces the bug (red), then the
+  fix (green).
+
+### Define the validation before starting a task
+- For every task, **state the objective validation(s) up front** — something a machine can
+  check and another engineer can re-run: a specific test command, a CI gate, a measurable
+  threshold (e.g. a p95 latency, a query result, an HTTP status), a schema/contract check, or
+  a reproducible command with its expected output.
+- "Looks right", "should work", or "it compiles/imports" are **not** validations. Prefer the
+  gates already named in `implementation-plan.md` where one applies (tenant-isolation
+  conformance across all 3 DB modes, the 30-minute first-fork-grade-trace acceptance test,
+  fork-start p95 < 3s, ingest 10k spans/sec/node, the SDK coverage bars, `docs-drift-check`,
+  the self-host smoke gates).
+
+### Affirm the validation actually passed before calling a task done
+- A task is **complete only after you have run its validation and observed it pass.**
+  Positively affirm this — cite the command you ran and its actual result. Never declare a
+  task done from code inspection alone, or because the diff looks correct.
+- If a validation reveals a failure, **report it with the real output** — do not paper over
+  it, weaken the test, or narrow the assertion to make it pass.
+- If a validation **cannot be run here, is blocked, or requires user interaction** —
+  credentials, a live external service (provider API key, cloud account), a manual UI/browser
+  step, a `terraform apply`, a real cluster — **stop and tell the user**: name the validation,
+  explain why it can't be completed in this environment, and state what you need from them. Do
+  not silently skip it or mark the task done on the assumption that it *would* pass.
+
 ## License & distribution
 
 - **Apache-2.0** (permissive; patent grant). See `LICENSE`.
