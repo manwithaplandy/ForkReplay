@@ -311,6 +311,12 @@ overlap.
 
 ## Deprecated → replaced mapping
 
+> **Canonical mapping.** This table is the single source of truth for the deprecated →
+> OSS-replacement mapping; the operator-facing [../deployment/architecture.md](../deployment/architecture.md)
+> cross-links here rather than duplicating it. (Role split: this `docs/architecture/` tree
+> holds design sketches — ownership, contracts, sequencing — while `docs/deployment/` holds
+> operator topology and the environment contract.)
+
 The repo retains some Cloudflare/Vercel-era directories and the billing layer **only as
 transition references** (secret-scrubbed); they are **not** part of the self-host stack and
 are **slated** for deletion in an implementation phase. Each was **replaced** by an OSS
@@ -334,5 +340,5 @@ partition/retention cron **replaced** by `services/scheduler`.
 
 - [../deployment/architecture.md](../deployment/architecture.md) — runtime topology + data flow
 - [../deployment/configuration.md](../deployment/configuration.md) — environment-variable reference
-- `implementation-plan.md` §11 — the architecture-artifact checklist this charter satisfies
+- The GitHub milestones (Phase 0–6) — the architecture-artifact checklist this charter satisfies
 - `implementation-readiness-spec.md` — object model and audit-trail contracts

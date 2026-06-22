@@ -45,7 +45,7 @@ fixtures alike.
   threshold (e.g. a p95 latency, a query result, an HTTP status), a schema/contract check, or
   a reproducible command with its expected output.
 - "Looks right", "should work", or "it compiles/imports" are **not** validations. Prefer the
-  gates already named in `implementation-plan.md` where one applies (tenant-isolation
+  established acceptance gates where one applies (tenant-isolation
   conformance across all 3 DB modes, the 30-minute first-fork-grade-trace acceptance test,
   fork-start p95 < 3s, ingest 10k spans/sec/node, the SDK coverage bars, `docs-drift-check`,
   the self-host smoke gates).
@@ -83,10 +83,12 @@ authored in a future implementation phase; this repo currently documents their d
 ## Canonical docs (read these first)
 - `agent-trace-fork-prd.md` — v0.9 product requirements (OSS self-hostable)
 - `implementation-readiness-spec.md` — v0.5 object model, contracts, audit trail
-- `implementation-plan.md` — v0.4 build sequence (incl. deployment-packaging phase)
-- `READINESS-GATE-REPORT.md` — readiness verdict + OSS pivot re-gate
 - `competitive_analysis.md` — v0.4 OSS market positioning
 - `docs/deployment/` — self-host topology, configuration, and deployment-target docs
+- `docs/architecture/` — design sketches: services, schemas, API surface, Temporal workflows, SDK, deployment modes
+
+> The phased build sequence (Phase 0–6) is tracked as GitHub milestones, not as a
+> checked-in plan doc.
 
 ## OSS V1 scope (do NOT expand without explicit approval)
 
@@ -144,8 +146,10 @@ an implementation-phase task.
 
 ## Phase 0 first
 
-Implementation work begins with the Phase 0 spikes in `implementation-plan.md` §3.
-Critical-path order and the OSS-pivot re-gate are in `READINESS-GATE-REPORT.md`.
+Implementation work begins with the Phase 0 spikes, tracked as the **Phase 0 GitHub
+milestone**. Critical-path order and the per-phase issue breakdown live in the GitHub
+milestones (Phase 0–6); the OSS-pivot scope constraints are captured in the "OSS V1 scope"
+section above.
 
 ## Per-directory AGENTS.md
 

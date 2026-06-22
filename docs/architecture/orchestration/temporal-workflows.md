@@ -12,9 +12,8 @@ authored in a later implementation phase.
 > the only orchestrator in V1; there is no first-call bypass and no managed-SaaS variant.
 
 Grounding: `implementation-readiness-spec.md` §"Durable Orchestration" + the `Branch` state
-machine; `agent-trace-fork-prd.md` §"Operator quotas (`WorkspaceLimits`)"; `implementation-plan.md`
-§11 ("Temporal workflow lifecycle sketches for the branch loop") and §3.4 (branch progress and
-SSE). Read `docs/deployment/architecture.md` first for how Temporal, Redis, and the FastAPI SSE
+machine; `agent-trace-fork-prd.md` §"Operator quotas (`WorkspaceLimits`)". Read
+`docs/deployment/architecture.md` first for how Temporal, Redis, and the FastAPI SSE
 endpoint sit in the overall topology.
 
 ---

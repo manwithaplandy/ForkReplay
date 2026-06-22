@@ -259,4 +259,4 @@ not part of the top-level public surface.
 - `agent-trace-fork-prd.md` §11 — SDK ergonomics, install posture, env-var contract.
 - `implementation-readiness-spec.md` §11 + the fork-grade capture requirements / framework
   support table.
-- `implementation-plan.md` §11 — SDK + framework-adapter build sequence.
+- The GitHub milestones (Phase 0–6) — the SDK + framework-adapter build sequence.

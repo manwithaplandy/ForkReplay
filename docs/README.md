@@ -26,7 +26,15 @@ skill, which:
    "TypeScript SDK", "TS SDK") and warns if any are introduced — these are
    explicit V1 non-goals per the root `AGENTS.md`.
 
-## Layout (to be filled in over Phase 1+)
+## Layout
+
+Built out today:
+
+- [`architecture/`](./architecture/README.md) — technical-architecture design sketches:
+  service responsibilities, control-plane + ClickHouse schemas, the API surface, Temporal
+  workflows, the Python SDK outline, and the pluggable deployment-mode abstractions.
+
+Filled in over Phase 1+:
 
 - `concepts/` — frame model, branch model, replay determinism
 - `api/` — rendered OpenAPI reference
