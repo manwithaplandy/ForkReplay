@@ -1,12 +1,61 @@
-# Secrets / env
-.env.local
-.env*.local
+# =============================================================================
+# Secrets & env — NEVER commit credentials, keys, tokens, or identifying data.
+#
+# .gitignore is a safety net, not enforcement: it stops untracked secret FILES
+# from being added, but cannot catch a secret pasted into an already-tracked
+# file. The gitleaks `secret-scan` job in
+# .github/workflows/docs-drift-check.yml is the enforcement layer. See
+# SECURITY.md and docs/operations/provisioning-template.md (use ${PLACEHOLDER}
+# markers in committed templates).
+# =============================================================================
+
+# Env files — ignore everything except the committed template
+.env
+.env.*
+!.env.example
 
 # Local-only secret / provisioning runbooks (never commit identifying data)
-SECRET-REMEDIATION.local.md
-PROVISIONING.local.md
-*.secrets.md
 *.local.md
+*.local.json
+*.local.yaml
+*.local.yml
+*.secrets.md
+
+# Private keys, certificates, keystores
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+# SSH keys
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.ppk
+
+# Generic credential / secret bundles
+secrets.json
+secrets.yaml
+secrets.yml
+credentials.json
+.credentials
+.pgpass
+.netrc
+
+# Service-specific credential files (see .env.example)
+*.creds            # NATS user credentials  (NATS_CREDS)
+*.agekey           # age identity for KEK    (KEK_AGE_IDENTITY_FILE)
+kubeconfig         # Helm / Kubernetes
+*.kubeconfig
+
+# Terraform — state and tfvars can embed secrets (examples stay tracked)
+*.tfvars
+*.tfvars.json
+*.tfstate
+*.tfstate.*
+.terraform/
 
 # JS / TS
 node_modules/
